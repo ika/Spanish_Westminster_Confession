@@ -1,5 +1,7 @@
-# Confesion_de_fe_de_westminster
+# Spanish_Westminster_Confession
 
 Westminster Confession in Spanish
 
-# Spanish_Westminster_Confession
+# Privacy Policy
+
+No data whatsoever is collected by this app.
