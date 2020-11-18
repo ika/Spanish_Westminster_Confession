@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="confesion_de_fe_de_westminster"
+        android:label="la Confesión de Fe de Westminster"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
