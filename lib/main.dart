@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:confesion_de_fe_de_westminster/detailPage.dart';
 import 'package:confesion_de_fe_de_westminster/dbhelper.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:share/share.dart';
 
@@ -40,7 +41,6 @@ class MyHomePage extends StatefulWidget {
 class _MyListViewBuilder extends State<MyHomePage> {
   DBProvider dbProvider = DBProvider();
   List<Chapter> chapters;
-  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,36 +48,6 @@ class _MyListViewBuilder extends State<MyHomePage> {
       chapters = List<Chapter>();
       updateChapters();
     }
-
-    final makeBottom = Container(
-      height: 56.0,
-      child: BottomAppBar(
-        color: Color.fromRGBO(58, 66, 86, 1.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(Icons.share_rounded, color: Colors.yellowAccent),
-              onPressed: () {
-                Share.share('La Confesión de Fe Westminster https://example.com');
-              },
-            ),
-            // IconButton(
-            //   icon: Icon(Icons.blur_on, color: Colors.white),
-            //   onPressed: () {},
-            // ),
-            // IconButton(
-            //   icon: Icon(Icons.hotel, color: Colors.white),
-            //   onPressed: () {},
-            // ),
-            // IconButton(
-            //   icon: Icon(Icons.account_box, color: Colors.white),
-            //   onPressed: () {},
-            // )
-          ],
-        ),
-      ),
-    );
 
     ListTile makeListTile(chapters, int index) => ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -113,10 +83,12 @@ class _MyListViewBuilder extends State<MyHomePage> {
           //   context,
           //   MaterialPageRoute(builder: (context) => DetailPage(chapters, index)),
           // );
-          Navigator.push(
-              context,
-              CupertinoPageRoute(
-                  builder: (context) => DetailPage(chapters, index)));
+          Future.delayed(const Duration(milliseconds: 200), () {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                    builder: (context) => DetailPage(chapters, index)));
+          });
         });
 
     Card makeCard(chapters, int index) => Card(
@@ -151,46 +123,43 @@ class _MyListViewBuilder extends State<MyHomePage> {
       //],
     );
 
-    // Navigation Rail
-    // final navigationRail = Row(
-    //   children: [
-    //     NavigationRail(
-    //       backgroundColor: Color.fromRGBO(64, 75, 96, .9),
-    //       selectedIndex: _selectedIndex,
-    //       onDestinationSelected: (int index) {
-    //         setState(() {
-    //           _selectedIndex = index;
-    //         });
-    //       },
-    //       labelType: NavigationRailLabelType.none,
-    //       minWidth: 48,
-    //       destinations: [
-    //         NavigationRailDestination(
-    //           icon: Icon(Icons.share, color: Colors.white,),
-    //           selectedIcon: Icon(Icons.share, color: Colors.white,),
-    //           label: Text('First'),
-    //         ),
-    //         NavigationRailDestination(
-    //           icon: Icon(Icons.star_border, color: Colors.white,),
-    //           selectedIcon: Icon(Icons.star, color: Colors.white,),
-    //           label: Text('Second'),
-    //         ),
-    //       ],
-    //     ),
-    //     VerticalDivider(thickness: 1, width: 1),
-    //     Expanded(
-    //       child: (
-    //           makeBody
-    //       ),
-    //     )
-    //   ],
-    // );
+    void _settingModalBottomSheet(context) {
+      showModalBottomSheet(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10.0),
+                  topLeft: Radius.circular(10.0))),
+          context: context,
+          builder: (BuildContext bc) {
+            return Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.share),
+                      title: new Text('Comparte esta aplicación'),
+                      onTap: () => {
+                            Navigator.pop(context),
+                            Share.share(
+                                'La Confesión de Fe de Westminster https://play.google.com/store/apps/details?id=org.armstrong.ika.confesion_de_fe_de_westminster')
+                          }),
+                ],
+              ),
+            );
+          });
+    }
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
       appBar: topAppBar,
       body: makeBody,
-      bottomNavigationBar: makeBottom,
+      //bottomNavigationBar: makeBottom,
+      floatingActionButton: new FloatingActionButton(
+        backgroundColor: Colors.grey,
+        onPressed: () {
+          _settingModalBottomSheet(context);
+        },
+        child: new Icon(Icons.add, color: Colors.white),
+      ),
     );
   }
 

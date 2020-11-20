@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 import 'package:confesion_de_fe_de_westminster/chaptersModel.dart';
-import 'package:provider/provider.dart';
 
 // https://www.linkedin.com/pulse/to-do-list-flutter-sqlite-local-database-udara-abeythilake
 

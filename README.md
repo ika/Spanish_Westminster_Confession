@@ -1,6 +1,10 @@
-# Spanish_Westminster_Confession
+# La Confesión de Fe de Westminster
 
-Westminster Confession in Spanish
+Westminster Confession of Faith in Spanish
+
+# Google Play Store
+
+https://play.google.com/store/apps/details?id=org.armstrong.ika.confesion_de_fe_de_westminster
 
 # Privacy Policy
 
